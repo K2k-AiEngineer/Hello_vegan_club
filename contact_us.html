@@ -17,7 +17,132 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
     <link rel="stylesheet" href="text/css" href="assets/css/contact_page.css">
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<style>
+    .popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
 
+.popup-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    max-width: 90%;
+    width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    animation: zoomIn 0.4s ease-out;
+}
+
+.popup-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.popup-content p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+}
+
+.close-btn i {
+    transition: color 0.3s;
+}
+
+.close-btn:hover i {
+    color: #dc3545;
+}
+
+
+/* Popup Animations */
+@keyframes zoomIn {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.popup.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .popup-content {
+        width: 90%;
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .popup-icon {
+        font-size: 35px;
+    }
+
+    .popup-content p {
+        font-size: 14px;
+    }
+
+    .close-btn {
+        top: 5px;
+        right: 5px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .popup-content {
+        width: 90%;
+        max-width: 90%;
+        padding: 10px;
+    }
+
+    .popup-icon {
+        font-size: 30px;
+    }
+
+    .popup-content p {
+        font-size: 12px;
+    }
+
+    .close-btn {
+        top: 5px;
+        right: 5px;
+        font-size: 16px;
+    }
+}
+</style>
 </head>
 
 <body>
@@ -309,15 +434,15 @@
             <p id="popup-message"></p>
         </div>
     </div>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         (function () {
-            emailjs.init('_2JmajgpL0-TXjp0R'); // Initialize EmailJS with your user ID
+            emailjs.init('yMl33kRgwY_3Ojxyw'); // Initialize EmailJS with your user ID
         })();
 
         document.getElementById('contactForm').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the default form submission
 
-            emailjs.sendForm("service_sgjo72u","template_ceuadjq", this)
+            emailjs.sendForm("service_sgjo72u","template_stfzxat", this)
                 .then(function () {
                     // Success - Show success popup
                     const popup = document.getElementById('popup');
@@ -358,8 +483,61 @@
         document.querySelector('.close-btn').addEventListener('click', function () {
             document.getElementById('popup').style.display = 'none';
         });
+    </script> -->
+    <script type="text/javascript">
+        (function () {
+            emailjs.init('yMl33kRgwY_3Ojxyw'); // Initialize EmailJS with your user ID
+        })();
+    
+        document.getElementById('contactForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+    
+            // Reference to the form element
+            const form = this;
+    
+            emailjs.sendForm("service_sgjo72u", "template_stfzxat", form)
+                .then(function () {
+                    // Success - Show success popup
+                    showPopup('fas fa-check-circle', '#28a745', 'Your message has been submitted successfully!');
+    
+                    // Clear the form fields after submission
+                    form.reset();
+                }, function (error) {
+                    // Failure - Show error popup
+                    showPopup('fas fa-exclamation-circle', '#dc3545', 'There was an error submitting your form. Please try again.');
+                }).catch(() => {
+                    // Network or other error - Show error popup
+                    showPopup('fas fa-exclamation-circle', '#dc3545', 'There was an error submitting your form. Please try again.');
+                });
+        });
+    
+        // Utility function to display popup
+        function showPopup(iconClass, iconColor, message) {
+            const popup = document.getElementById('popup');
+            const popupMessage = document.getElementById('popup-message');
+            const popupIcon = document.getElementById('popup-icon');
+            
+            // Update popup content
+            popupIcon.className = iconClass;
+            popupIcon.style.color = iconColor;
+            popupMessage.textContent = message;
+    
+            // Display popup with fade-in animation
+            popup.style.display = 'flex';
+            popup.classList.add('fade-in');
+    
+            // Automatically close the popup after 2 seconds
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 2000);
+        }
+    
+        // Close popup when the close button is clicked
+        document.querySelector('.close-btn').addEventListener('click', function () {
+            document.getElementById('popup').style.display = 'none';
+        });
     </script>
-
+    
 
 
 

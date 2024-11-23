@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="assets/plugins/slider/css/owl.theme.default.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
     <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://js.instamojo.com/v1/checkout.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
@@ -132,7 +133,7 @@
 
                         <!-- <p class="raises"><span>Raised : $34,425</span> / $500,000 </p> -->
                         
-                        <a href="https://buy.stripe.com/test_4gw01Md8M64U4U07st"><button class="btn btn-success btn-sm">Pay Now</button></a>
+                        <a href="https://buy.stripe.com/cN23cU51wehB71C28e"><button class="btn btn-success btn-sm">Pay Now</button></a>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6">
@@ -140,7 +141,7 @@
                         <img src="assets/images/domestic.jpg" alt="">
                         <h4>Domestic Payment</h4>
                     
-                        <button class="btn btn-success btn-sm">Pay Now</button>
+                        <button onclick="onButtonClick()" class="btn btn-success btn-sm">Pay Now</button>
                     </div>
                 </div>
                 
@@ -236,9 +237,12 @@
 
     </div>
 
-
 </body>
-
+<script>
+    function onButtonClick() {
+      Instamojo.open('https://imjo.in/q5zRp9');
+    }
+  </script>
 <script src="assets/js/jquery-3.2.1.min.js"></script>
 <script src="assets/js/popper.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
